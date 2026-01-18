@@ -11,7 +11,7 @@ exclude = [".git", "__pycache__", "env", "venv"]
 
 [project]
 name = "dkov.py.testpackage_001"
-version = "0.0.4"
+version = "0.0.5"
 
 description = "Test Package"
 readme = "README.md"
