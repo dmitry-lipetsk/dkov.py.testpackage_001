@@ -35,7 +35,8 @@ jobs:
       run: |
         pytest -vvv -l -n 4
     - name: Upload test logs
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pytest logs
         path: logs/
+        retention-days: 90
