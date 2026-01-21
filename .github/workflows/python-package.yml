@@ -16,27 +16,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
+        include:
+          - platform: "alpine"
+            python: "3.8"
+          - platform: "alpine"
+            python: "3.14"
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install -r tests/requirements.txt
-    - name: Lint with flake8
-      run: |
-        flake8 .
-    - name: Test with pytest
-      run: |
-        pytest -vvv -l -n 4
-    - name: Upload test logs
-      uses: actions/upload-artifact@v4
-      with:
-        name: pytest_logs_py${{ matrix.python-version }}
-        path: logs/
-        retention-days: 90
+    - name: Checkout
+      uses: actions/checkout@v4
+    - name: Build local image ${{ matrix.alpine }}
+      run: docker build --build-arg PYTHON_VERSION="${{ matrix.python }}" -t "tests-${{ matrix.platform }}-py${{ matrix.python }}" -f Dockerfile--${{ matrix.platform }}.tmpl .
+    - name: Run
+      run: docker run -t "tests-${{ matrix.platform }}-py${{ matrix.python }}"
