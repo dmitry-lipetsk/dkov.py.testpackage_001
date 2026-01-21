@@ -37,20 +37,26 @@ jobs:
             python: "3.14"
 
     steps:
+    - name: Prepare variables
+      run: |
+        RUN_CFG__LOGS_DIR="logs-${{ matrix.platform }}-${{ matrix.python }}"
+        echo "RUN_CFG__LOGS_DIR=\"$RUN_CFG__LOGS_DIR\"" >> $GITHUB_ENV
+        echo "---------- [$GITHUB_ENV]"
+        cat $GITHUB_ENV
     - name: Checkout
       uses: actions/checkout@v4
     - name: Build local image ${{ matrix.alpine }}
       run: docker build --build-arg PYTHON_VERSION="${{ matrix.python }}" -t "tests-${{ matrix.platform }}-py${{ matrix.python }}" -f Dockerfile--${{ matrix.platform }}.tmpl .
     - name: Prepare logs folder on the host
-      run: mkdir -p "logs-${{ matrix.platform }}-py${{ matrix.python }}"
+      run: mkdir -p "${{ env.RUN_CFG__LOGS_DIR }}"
     - name: Adjust logs folder permission
-      run: chmod -R 777 "logs-${{ matrix.platform }}-py${{ matrix.python }}"
+      run: chmod -R 777 "${{ env.RUN_CFG__LOGS_DIR }}"
     - name: Run
-      run: docker run -t -v ${{ github.workspace }}/logs-${{ matrix.platform }}-py${{ matrix.python }}:/home/test/testgres/logs "tests-${{ matrix.platform }}-py${{ matrix.python }}"
+      run: docker run -t -v ${{ github.workspace }}/${{ env.RUN_CFG__LOGS_DIR }}:/home/test/testgres/logs "tests-${{ matrix.platform }}-py${{ matrix.python }}"
     - name: Upload Logs
       uses: actions/upload-artifact@v4
       if: always() # IT IS IMPORTANT!
       with:
         name: container-logs--${{ matrix.platform }}-py${{ matrix.python }}
-        path: "logs-${{ matrix.platform }}-py${{ matrix.python }}/"
+        path: "${{ env.RUN_CFG__LOGS_DIR }}/"
         retention-days: 90
