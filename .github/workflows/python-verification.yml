@@ -39,7 +39,7 @@ jobs:
     steps:
     - name: Prepare variables
       run: |
-        RUN_CFG__LOGS_DIR="logs-${{ matrix.platform }}-${{ matrix.python }}"
+        RUN_CFG__LOGS_DIR="logs-${{ matrix.platform }}-py${{ matrix.python }}"
         echo "RUN_CFG__LOGS_DIR=$RUN_CFG__LOGS_DIR" >> $GITHUB_ENV
         echo "---------- [$GITHUB_ENV]"
         cat $GITHUB_ENV
