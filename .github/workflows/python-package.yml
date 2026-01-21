@@ -43,6 +43,8 @@ jobs:
       run: docker build --build-arg PYTHON_VERSION="${{ matrix.python }}" -t "tests-${{ matrix.platform }}-py${{ matrix.python }}" -f Dockerfile--${{ matrix.platform }}.tmpl .
     - name: Prepare logs folder on the host
       run: mkdir -p "logs-${{ matrix.platform }}-py${{ matrix.python }}"
+    - name: Adjust logs folder permission
+      run: chmod -R 777 "logs-${{ matrix.platform }}-py${{ matrix.python }}"
     - name: Run
       run: docker run -t -v ${{ github.workspace }}/logs-${{ matrix.platform }}-py${{ matrix.python }}:/home/test/testgres/logs "tests-${{ matrix.platform }}-py${{ matrix.python }}"
     - name: Upload Logs
