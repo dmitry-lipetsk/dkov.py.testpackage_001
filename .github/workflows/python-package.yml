@@ -53,3 +53,4 @@ jobs:
       with:
         name: container-logs--${{ matrix.platform }}-py${{ matrix.python }}
         path: "logs-${{ matrix.platform }}-py${{ matrix.python }}/"
+        retention-days: 90
