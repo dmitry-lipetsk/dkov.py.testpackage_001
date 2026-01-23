@@ -11,5 +11,5 @@ class TestSet001:
         return
 
     def test_func3(self):
-        assert src_utils.func2() == "It is func3!"
+        assert src_utils.func3() == "It is func3!"
         return
