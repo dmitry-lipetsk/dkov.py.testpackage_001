@@ -5,9 +5,11 @@ name: Run Package Lint
 
 on:
   push:
-    branches: [ "**" ]
+    branches-ignore:
+      - 'main'
   pull_request:
-    branches: [ "**" ]
+    branches-ignore:
+      - 'main'
 
 jobs:
   lint:
