@@ -12,7 +12,7 @@ class TestSet001:
         # Author: Mark G.
         assert v.major == 0
         assert v.minor == 0
-        assert v.micro == 7
+        assert v.micro == 8
 
         assert str(v) == package_version
         return
