@@ -20,7 +20,7 @@ description = "Test Package"
 readme = "README.md"
 
 #  This old format is used to ensure compatibility with Python 3.7.
-license = {text = "WTFPL"}
+license = "WTFPL"
 
 authors = [
     {name = "Dmitry Kovalenko", email = "dmitry.lipetsk@gmail.com"},
