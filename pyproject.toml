@@ -5,13 +5,16 @@ build-backend = "setuptools.build_meta"
 [tool.setuptools.package-dir]
 "dkov_py_testpackage_001" = "src"
 
+[tool.setuptools.dynamic]
+version = {attr = "dkov_py_testpackage_001.__version__"}
+
 [tool.flake8]
 extend-ignore = ["E501"]
 exclude = [".*", "__pycache__", "dist", "*egg*", "env", "venv", "tmp", "logs"]
 
 [project]
 name = "dkov.py.testpackage_001"
-version = "0.0.7"
+dynamic = ["version"]
 
 description = "Test Package"
 readme = "README.md"
