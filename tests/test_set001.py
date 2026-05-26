@@ -30,5 +30,5 @@ class TestSet001:
         return
 
     def test_func4(self):
-        assert "aa" == "a" + "a"
+        assert "aa" == "a" + "a" + ""
         return
