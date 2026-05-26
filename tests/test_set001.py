@@ -28,3 +28,7 @@ class TestSet001:
     def test_func3(self):
         assert src_utils.func3() == "It is func3!"
         return
+
+    def test_func4(self):
+        assert "aa" == "a" + "a"
+        return
